@@ -52,6 +52,20 @@ if not fn then
     return
 end
 
+-- Durian Garden: เกมใช้ StreamingEnabled ทำให้ NPC ในโกดัง (Flex_Guy, ShanaKung) ไม่โผล่ถ้าอยู่ไกลจากจุด (0,0,0)
+-- สคริปต์ทุเรียนรอ NPC นี้ไม่มีกำหนดเวลา เลยค้างและเมนูไม่ขึ้น: ขอให้เกมโหลดโซนโกดังก่อนค่อยรัน
+if game.PlaceId == 91350038154849 then
+    pcall(function()
+        game.Players.LocalPlayer:RequestStreamAroundAsync(Vector3.new(0, 3, 0), 10)
+    end)
+    local map = workspace:WaitForChild("Map", 20)
+    local dw = map and map:WaitForChild("DurianWarehouse", 20)
+    if dw then
+        dw:WaitForChild("Flex_Guy", 20)
+        dw:WaitForChild("ShanaKung", 20)
+    end
+end
+
 local ok, err = pcall(fn)
 if not ok then
     warn("รันสคริปต์ไม่สำเร็จ: " .. tostring(err))
