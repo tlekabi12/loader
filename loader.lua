@@ -5,6 +5,7 @@ local Scripts = {
     [104549080643413] = "https://raw.githubusercontent.com/tlekabi12/Mhnk-script/main/mhnk.luau", -- MAHANAKHON
     [92700843475315]  = "https://raw.githubusercontent.com/tlekabi12/RiverHunter/refs/heads/main/RiverHunter.lua", -- River Hunter
     [116750055341696] = "https://raw.githubusercontent.com/tlekabi12/Buddha/refs/heads/main/AmuletRoad.lua", -- Amulet Road (ถนนพระเครื่อง)
+    [91350038154849]  = "https://raw.githubusercontent.com/tlekabi12/durian-script/refs/heads/main/Tscriptdurian.lua",
 }
 
 local url = Scripts[game.PlaceId]
