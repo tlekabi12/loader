@@ -1,5 +1,4 @@
 -- loader.lua : เช็ก PlaceId แล้วรันสคริปต์ของแมพนั้น
--- loader.lua : เช็ก PlaceId แล้วรันสคริปต์ของแมพนั้น
 if not game:IsLoaded() then game.Loaded:Wait() end
 task.wait(2)
 
@@ -9,7 +8,6 @@ local Scripts = {
     [104549080643413] = "https://raw.githubusercontent.com/tlekabi12/Mhnk-script/main/mhnk.luau", -- MAHANAKHON
     [92700843475315]  = "https://raw.githubusercontent.com/tlekabi12/RiverHunter/refs/heads/main/RiverHunter.lua", -- River Hunter
     [116750055341696] = "https://raw.githubusercontent.com/tlekabi12/Buddha/refs/heads/main/AmuletRoad.lua", -- Amulet Road (ถนนพระเครื่อง)
-    [91350038154849]  = "https://raw.githubusercontent.com/tlekabi12/durian-script/refs/heads/main/Tscriptdurian.lua", -- Durian Garden
 }
 
 local url = Scripts[game.PlaceId]
@@ -38,6 +36,17 @@ end
 if not src then return end
 
 local fn, cerr = loadstring(src)
+if not fn then
+    -- ไฟล์บนเซิร์ฟเวอร์อาจมีโค้ดเก่าตกค้างต่อท้าย (หลังบรรทัด "end)(...)" ตัวแรก) ลองตัดส่วนท้ายทิ้งแล้วคอมไพล์ใหม่
+    local _, cutEnd = src:find("\nend%)%(%.%.%.%)")
+    if cutEnd then
+        local fn2 = loadstring(src:sub(1, cutEnd))
+        if fn2 then
+            warn("ไฟล์มีโค้ดตกค้างต่อท้าย: ตัดส่วนท้ายออกแล้วรันต่อ (ควรลบบรรทัดท้ายไฟล์บน GitHub)")
+            fn, cerr = fn2, nil
+        end
+    end
+end
 if not fn then
     warn("คอมไพล์สคริปต์ไม่ผ่าน: " .. tostring(cerr))
     return
